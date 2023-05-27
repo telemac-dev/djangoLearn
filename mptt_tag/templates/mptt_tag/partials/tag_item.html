@@ -1,15 +1,16 @@
-  <li>
-    {{ tag.name }}
-    <div class="btn-group" role="group">
-      <a href="{% url 'tag_update' tag.id %}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
-      <a href="{% url 'tag_delete' tag.id %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-    </div>
-  </li>
-  {% if tag.get_children %}
-    <ul>
-      {% for child in tag.get_children %}
-          {% include 'mptt_tag/partials/tag_item.html' with tag=child %}
-      {% endfor %}
-    </ul>
-  {% endif %}
-  
+<tr>
+    <td>
+        <span class="mx-{% if not tag.is_root_node %}{{tag.level|add:"2"}}{% endif %} badge bg-{% if tag.is_root_node %}primary{% elif tag.level == 1 %}success{% elif tag.level >= 2 %}danger{% endif %}">{{ tag.name }}</span>
+    </td>
+    <td>    
+        <div class=" btn-group" role="group">
+            <a href="{% url 'tag_update' tag.id %}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+            <a href="{% url 'tag_delete' tag.id %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+        </div>
+    </td>
+</tr>
+{% if tag.get_children %}
+{% for child in tag.get_children %}
+    {% include 'mptt_tag/partials/tag_item.html' with tag=child %}
+{% endfor %}
+{% endif %}

@@ -3,12 +3,19 @@
 {% block content %}
   <h1>Lista de Tags</h1>
   <a href="{% url 'tag_create' %}" class="btn btn-primary mb-3">Criar Tag</a>
-
-  <ul>
-    {% for tag in tags %}
-      {% if tag.is_root_node %}
-        {% include 'mptt_tag/partials/tag_item.html' with tag=tag %}
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endblock %}
+<table>
+    <thead>
+      <tr>
+        <th>Nome da Tag</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in tags %}
+        {% if tag.is_root_node %}
+          {% include 'mptt_tag/partials/tag_item.html' with tag=tag %}
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}
