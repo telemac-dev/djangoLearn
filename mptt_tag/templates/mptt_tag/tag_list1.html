@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Lista de Tags</h1>
+  <a href="{% url 'tag_create' %}" class="btn btn-primary mb-3">Criar Tag</a>
+  
+  <ul>
+    {% for tag in tags %}
+      {% if tag.is_root_node %}
+        <li>
+          <strong>{{ tag.name }}</strong>
+          <div class="btn-group">
+            <a href="{% url 'tag_update' tag.id %}" class="btn btn-sm btn-primary">Editar</a>
+            <a href="{% url 'tag_delete' tag.id %}" class="btn btn-sm btn-danger">Excluir</a>
+          </div>
+          {% if tag.get_children %}
+            {% include 'mptt_tag/partials/tag_children.html' with children=tag.get_children %}
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+

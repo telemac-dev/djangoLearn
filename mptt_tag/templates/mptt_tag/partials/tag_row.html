@@ -1,0 +1,23 @@
+<tr>
+    <td>{{ tag.id }}</td>
+    <td>
+      {% for i in tag.get_ancestors %}
+        {% if forloop.last %}
+          <span class="ms-{{ forloop.revcounter }}">&nbsp;</span>
+        {% else %}
+          <span class="ms-{{ forloop.revcounter }} border-start"></span>
+        {% endif %}
+      {% endfor %}
+      {{ tag.name }}
+    </td>
+    <td>
+      <div class="btn-group" role="group">
+        <a href="{% url 'tag_update' tag.id %}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+        <a href="{% url 'tag_delete' tag.id %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+      </div>
+    </td>
+  </tr>
+  {% for child in tag.get_children %}
+    {% include 'mptt_tag/partials/tag_row.html' with tag=child %}
+  {% endfor %}
+  

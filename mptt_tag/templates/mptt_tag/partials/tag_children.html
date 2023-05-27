@@ -1,0 +1,20 @@
+{% for child in children %}
+  <li>
+    {% if child.get_children %}
+      <a href="#">{{ child.name }}</a>
+      <div class="btn-group">
+        <a href="{% url 'tag_update' child.id %}" class="btn btn-sm btn-primary">Editar</a>
+        <a href="{% url 'tag_delete' child.id %}" class="btn btn-sm btn-danger">Excluir</a>
+      </div>
+      <ul>
+        {% include 'mptt_tag/partials/tag_children.html' with children=child.get_children %}
+      </ul>
+    {% else %}
+      {{ child.name }}
+      <div class="btn-group">
+        <a href="{% url 'tag_update' child.id %}" class="btn btn-sm btn-primary">Editar</a>
+        <a href="{% url 'tag_delete' child.id %}" class="btn btn-sm btn-danger">Excluir</a>
+      </div>
+    {% endif %}
+  </li>
+{% endfor %}
