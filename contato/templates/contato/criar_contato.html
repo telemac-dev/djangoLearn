@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <title>Criar Contato</title>
+    <script>
+        function exibirFormulario(tipo) {
+            var formPessoaFisica = document.getElementById('formPessoaFisica');
+            var formPessoaJuridica = document.getElementById('formPessoaJuridica');
+
+            if (tipo === 'fisica') {
+                formPessoaFisica.style.display = 'block';
+                formPessoaJuridica.style.display = 'none';
+            } else if (tipo === 'juridica') {
+                formPessoaFisica.style.display = 'none';
+                formPessoaJuridica.style.display = 'block';
+            }
+        }
+    </script>
+
+    <h1>Criar Contato</h1>
+    <select onchange="exibirFormulario(this.value)">
+        <option value="fisica">Pessoa Física</option>
+        <option value="juridica">Pessoa Jurídica</option>
+    </select>
+
+    <form id="formPessoaFisica" method="post">
+        {% csrf_token %}
+        {{ pessoa_fisica_form.as_p }}
+        <button type="submit">Salvar Pessoa Física</button>
+    </form>
+
+    <form id="formPessoaJuridica" method="post">
+        {% csrf_token %}
+        {{ pessoa_juridica_form.as_p }}
+        <button type="submit">Salvar Pessoa Jurídica</button>
+    </form>
+
+    {% endblock %}

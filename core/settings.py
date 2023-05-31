@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'mptt_tag',
     'mptt',
     'select2',
+    'contato',
 ]
 
 MIDDLEWARE = [
