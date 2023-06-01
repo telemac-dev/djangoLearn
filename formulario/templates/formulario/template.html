@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+{% block title %}Pagina Inicial{% endblock %}
+{% block navbar %}
+	
+{% endblock %}
+{% block content %}
+
+<script>
+    function toggleForm() {
+        var tipoPessoa = document.getElementById('id_tipo_pessoa').value;
+        var pessoaFisicaForm = document.getElementById('pessoaFisicaForm');
+        var pessoaJuridicaForm = document.getElementById('pessoaJuridicaForm');
+
+        if (tipoPessoa === 'juridica') {
+            pessoaFisicaForm.style.display = 'none';
+            pessoaJuridicaForm.style.display = 'block';
+        } else {
+            pessoaFisicaForm.style.display = 'block';
+            pessoaJuridicaForm.style.display = 'none';
+        }
+    }
+</script>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div id="pessoaFisicaForm">
+        {{ form.cpf.label_tag }} {{ form.cpf }}
+    </div>
+
+    <div id="pessoaJuridicaForm" style="display: none;">
+        {{ form.razao_social.label_tag }} {{ form.razao_social }}
+        {{ form.cnpj.label_tag }} {{ form.cnpj }}
+    </div>
+
+    <input type="submit" value="Enviar">
+</form>
+
+<script>
+    document.getElementById('id_tipo_pessoa').addEventListener('change', toggleForm);
+    toggleForm();
+</script>
+{% endblock %}

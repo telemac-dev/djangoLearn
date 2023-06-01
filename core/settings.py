@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mptt',
     'select2',
     'contato',
+    'formulario',
 ]
 
 MIDDLEWARE = [
